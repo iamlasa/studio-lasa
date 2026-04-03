@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Studio Lasa — Drop 001</title>
+    <meta name="description" content="Studio Lasa. Drop 001. A heavyweight black tee. Made with intent. Pre-order now.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --black: #0a0a0a;
+            --white: #ffffff;
+            --gray: #777777;
+            --gray-dim: #333333;
+            --border: rgba(255, 255, 255, 0.07);
+            --font: 'Space Grotesk', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: var(--black);
+            color: var(--white);
+            font-family: var(--font);
+            font-size: 15px;
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
+        }
+
+        /* ─── NAV ─────────────────────────────────── */
+
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 28px 52px;
+        }
+
+        .nav-logo {
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--white);
+            text-decoration: none;
+        }
+
+        .nav-cta {
+            font-size: 11px;
+            font-weight: 500;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            color: var(--white);
+            text-decoration: none;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            padding: 11px 22px;
+            transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+        }
+
+        .nav-cta:hover {
+            background: var(--white);
+            color: var(--black);
+            border-color: var(--white);
+        }
+
+        /* ─── HERO ────────────────────────────────── */
+
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 140px 52px 100px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Subtle grain overlay */
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+            opacity: 0.4;
+            pointer-events: none;
+        }
+
+        .hero-eyebrow {
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 0.35em;
+            text-transform: uppercase;
+            color: var(--gray);
+            margin-bottom: 48px;
+            opacity: 0;
+            animation: fadeUp 0.8s ease 0.2s forwards;
+        }
+
+        .hero-image-wrap {
+            width: 100%;
+            max-width: 580px;
+            margin-bottom: 56px;
+            opacity: 0;
+            animation: fadeUp 0.9s ease 0.35s forwards;
+        }
+
+        .hero-image-wrap img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .hero-bottom {
+            text-align: center;
+            opacity: 0;
+            animation: fadeUp 0.8s ease 0.5s forwards;
+        }
+
+        .hero-brand {
+            font-size: clamp(44px, 7vw, 88px);
+            font-weight: 700;
+            letter-spacing: -0.03em;
+            line-height: 1;
+            margin-bottom: 18px;
+        }
+
+        .hero-tagline {
+            font-size: 12px;
+            font-weight: 300;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            color: var(--gray);
+        }
+
+        .scroll-cue {
+            position: absolute;
+            bottom: 44px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            opacity: 0;
+            animation: fadeIn 1s ease 1s forwards;
+        }
+
+        .scroll-cue span {
+            font-size: 10px;
+            font-weight: 400;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--gray-dim);
+        }
+
+        .scroll-line {
+            width: 1px;
+            height: 48px;
+            background: linear-gradient(to bottom, var(--gray-dim), transparent);
+            animation: scrollDrop 2.2s ease-in-out 1s infinite;
+        }
+
+        @keyframes scrollDrop {
+            0%, 100% { transform: scaleY(1); transform-origin: top; opacity: 1; }
+            50% { transform: scaleY(0.4); transform-origin: bottom; opacity: 0.4; }
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to   { opacity: 1; }
+        }
+
+        /* ─── SECTION DIVIDER ─────────────────────── */
+
+        .rule {
+            height: 1px;
+            background: var(--border);
+            margin: 0 52px;
+        }
+
+        /* ─── PRODUCT SECTION ─────────────────────── */
+
+        .product {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .product-visual {
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 80px 52px;
+            border-right: 1px solid var(--border);
+        }
+
+        .product-visual img {
+            max-width: 100%;
+            max-height: 75vh;
+            object-fit: contain;
+        }
+
+        .product-info {
+            padding: 80px 64px 80px 64px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .drop-label {
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 0.35em;
+            text-transform: uppercase;
+            color: var(--gray);
+            margin-bottom: 14px;
+            display: block;
+        }
+
+        .product-name {
+            font-size: clamp(30px, 3.5vw, 48px);
+            font-weight: 700;
+            letter-spacing: -0.025em;
+            line-height: 1.1;
+            margin-bottom: 28px;
+        }
+
+        .product-desc {
+            font-size: 14px;
+            font-weight: 300;
+            color: var(--gray);
+            line-height: 1.85;
+            margin-bottom: 44px;
+            max-width: 360px;
+        }
+
+        .product-price {
+            font-size: 22px;
+            font-weight: 600;
+            letter-spacing: -0.01em;
+            margin-bottom: 36px;
+        }
+
+        /* Color */
+        .product-attr {
+            margin-bottom: 32px;
+        }
+
+        .attr-label {
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--gray);
+            display: block;
+            margin-bottom: 14px;
+        }
+
+        .color-dot {
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            background: #111111;
+            border: 1.5px solid rgba(255, 255, 255, 0.4);
+            display: inline-block;
+            position: relative;
+        }
+
+        .color-dot::after {
+            content: '';
+            position: absolute;
+            inset: -4px;
+            border-radius: 50%;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        /* Sizes */
+        .size-grid {
+            display: flex;
+            gap: 8px;
+        }
+
+        .sz {
+            width: 48px;
+            height: 48px;
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--gray);
+            font-family: var(--font);
+            font-size: 12px;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            transition: background 0.15s, color 0.15s, border-color 0.15s;
+        }
+
+        .sz:hover {
+            border-color: rgba(255, 255, 255, 0.3);
+            color: var(--white);
+        }
+
+        .sz.active {
+            background: var(--white);
+            color: var(--black);
+            border-color: var(--white);
+        }
+
+        /* ─── PRE-ORDER FORM ──────────────────────── */
+
+        .preorder {
+            margin-top: 44px;
+            padding-top: 44px;
+            border-top: 1px solid var(--border);
+        }
+
+        .preorder-heading {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            letter-spacing: -0.01em;
+        }
+
+        .preorder-sub {
+            font-size: 13px;
+            color: var(--gray);
+            margin-bottom: 24px;
+            line-height: 1.7;
+        }
+
+        .field-row {
+            display: flex;
+        }
+
+        .email-input {
+            flex: 1;
+            background: transparent;
+            border: 1px solid var(--border);
+            border-right: none;
+            color: var(--white);
+            font-family: var(--font);
+            font-size: 13px;
+            font-weight: 400;
+            padding: 14px 18px;
+            outline: none;
+            transition: border-color 0.2s;
+        }
+
+        .email-input::placeholder {
+            color: var(--gray-dim);
+        }
+
+        .email-input:focus {
+            border-color: rgba(255, 255, 255, 0.25);
+        }
+
+        .submit-btn {
+            background: var(--white);
+            border: 1px solid var(--white);
+            color: var(--black);
+            font-family: var(--font);
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.18em;
+            text-transform: uppercase;
+            padding: 14px 26px;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: background 0.2s, color 0.2s;
+        }
+
+        .submit-btn:hover {
+            background: transparent;
+            color: var(--white);
+        }
+
+        .field-note {
+            font-size: 11px;
+            color: var(--gray-dim);
+            margin-top: 12px;
+            letter-spacing: 0.02em;
+        }
+
+        .success-state {
+            display: none;
+            font-size: 13px;
+            color: var(--gray);
+            padding: 14px 0;
+            letter-spacing: 0.05em;
+        }
+
+        /* ─── BRAND STATEMENT ─────────────────────── */
+
+        .statement {
+            padding: 128px 52px;
+            border-top: 1px solid var(--border);
+        }
+
+        .stmt-label {
+            font-size: 10px;
+            font-weight: 500;
+            letter-spacing: 0.35em;
+            text-transform: uppercase;
+            color: var(--gray);
+            display: block;
+            margin-bottom: 36px;
+        }
+
+        .stmt-copy {
+            font-size: clamp(26px, 3.5vw, 44px);
+            font-weight: 300;
+            line-height: 1.35;
+            letter-spacing: -0.015em;
+            max-width: 800px;
+        }
+
+        .stmt-copy strong {
+            font-weight: 700;
+            color: var(--white);
+        }
+
+        /* ─── FOOTER ──────────────────────────────── */
+
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 36px 52px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .footer-logo {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.25em;
+            text-transform: uppercase;
+            color: var(--white);
+        }
+
+        .footer-email {
+            font-size: 12px;
+            color: var(--gray);
+            text-decoration: none;
+            letter-spacing: 0.03em;
+            transition: color 0.2s;
+        }
+
+        .footer-email:hover {
+            color: var(--white);
+        }
+
+        .footer-copy {
+            font-size: 11px;
+            color: var(--gray-dim);
+            letter-spacing: 0.05em;
+        }
+
+        /* ─── RESPONSIVE ──────────────────────────── */
+
+        @media (max-width: 900px) {
+            nav {
+                padding: 22px 28px;
+            }
+
+            .hero {
+                padding: 120px 28px 80px;
+            }
+
+            .rule {
+                margin: 0 28px;
+            }
+
+            .product {
+                grid-template-columns: 1fr;
+            }
+
+            .product-visual {
+                position: relative;
+                height: auto;
+                padding: 60px 28px;
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .product-info {
+                padding: 52px 28px;
+            }
+
+            .statement {
+                padding: 80px 28px;
+            }
+
+            footer {
+                flex-direction: column;
+                gap: 20px;
+                padding: 36px 28px;
+                text-align: center;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-brand {
+                font-size: 42px;
+            }
+
+            .product-name {
+                font-size: 30px;
+            }
+
+            .field-row {
+                flex-direction: column;
+            }
+
+            .email-input {
+                border-right: 1px solid var(--border);
+                border-bottom: none;
+            }
+
+            .submit-btn {
+                padding: 14px;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ─── NAV ──────────────────────────────────── -->
+    <nav>
+        <a href="#" class="nav-logo">Studio Lasa</a>
+        <a href="#preorder" class="nav-cta">Reserve Your Spot</a>
+    </nav>
+
+    <!-- ─── HERO ─────────────────────────────────── -->
+    <section class="hero">
+        <p class="hero-eyebrow">Drop 001 &mdash; Coming Soon</p>
+
+        <div class="hero-image-wrap">
+            <!-- Replace mockup.jpg with your final product image -->
+            <img src="mockup.jpg" alt="Studio Lasa — Drop 001">
+        </div>
+
+        <div class="hero-bottom">
+            <h1 class="hero-brand">Studio Lasa</h1>
+            <p class="hero-tagline">Crafted for the Few.</p>
+        </div>
+
+        <div class="scroll-cue">
+            <span>Scroll</span>
+            <div class="scroll-line"></div>
+        </div>
+    </section>
+
+    <div class="rule"></div>
+
+    <!-- ─── PRODUCT ───────────────────────────────── -->
+    <section class="product" id="product">
+
+        <div class="product-visual">
+            <img src="mockup.jpg" alt="The Lasa Tee — Black">
+        </div>
+
+        <div class="product-info">
+            <span class="drop-label">Drop 001</span>
+            <h2 class="product-name">The Lasa Tee</h2>
+            <p class="product-desc">
+                Our first piece. A heavyweight black tee, precision-printed using DTF technology.
+                Built for those who wear with purpose. Limited run &mdash; pre-order to secure your size.
+            </p>
+
+            <p class="product-price">150 PLN</p>
+
+            <div class="product-attr">
+                <span class="attr-label">Colour</span>
+                <div class="color-dot" title="Black"></div>
+            </div>
+
+            <div class="product-attr">
+                <span class="attr-label">Size</span>
+                <div class="size-grid">
+                    <button class="sz" onclick="selectSize(this)">S</button>
+                    <button class="sz" onclick="selectSize(this)">M</button>
+                    <button class="sz" onclick="selectSize(this)">L</button>
+                    <button class="sz" onclick="selectSize(this)">XL</button>
+                </div>
+            </div>
+
+            <!-- PRE-ORDER FORM -->
+            <!--
+                HOW TO SET UP EMAIL COLLECTION (free):
+                1. Go to https://formspree.io and create a free account
+                2. Create a new form — it will give you an ID like "xyzabcde"
+                3. Replace YOUR_FORM_ID below with that ID
+                4. Submissions will arrive in your Gmail inbox
+            -->
+            <div class="preorder" id="preorder">
+                <h3 class="preorder-heading">Be First.</h3>
+                <p class="preorder-sub">Reserve your spot. We'll notify you as soon as Drop 001 is ready to ship.</p>
+
+                <form id="preorder-form" action="https://formspree.io/f/YOUR_FORM_ID" method="POST">
+                    <input type="hidden" name="size" id="size-field" value="Not selected">
+                    <div class="field-row">
+                        <input
+                            class="email-input"
+                            type="email"
+                            name="email"
+                            placeholder="Your email address"
+                            required
+                        >
+                        <button class="submit-btn" type="submit">Notify Me</button>
+                    </div>
+                    <p class="field-note">No spam. One email when we drop.</p>
+                </form>
+
+                <div class="success-state" id="success-state">
+                    &check;&nbsp; You're on the list. We'll be in touch.
+                </div>
+            </div>
+        </div>
+
+    </section>
+
+    <div class="rule"></div>
+
+    <!-- ─── BRAND STATEMENT ────────────────────────── -->
+    <section class="statement">
+        <span class="stmt-label">Studio Lasa</span>
+        <p class="stmt-copy">
+            We don't chase trends.<br>
+            <strong>We build pieces with intent</strong> &mdash; for the men who know that what they wear speaks before they do.
+        </p>
+    </section>
+
+    <!-- ─── FOOTER ────────────────────────────────── -->
+    <footer>
+        <span class="footer-logo">Studio Lasa</span>
+        <a class="footer-email" href="mailto:studiolasa.official@gmail.com">studiolasa.official@gmail.com</a>
+        <span class="footer-copy">&copy; 2025 Studio Lasa. All rights reserved.</span>
+    </footer>
+
+    <script>
+        // Size selection
+        function selectSize(btn) {
+            document.querySelectorAll('.sz').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            document.getElementById('size-field').value = btn.textContent.trim();
+        }
+
+        // Pre-order form submit via Formspree
+        const form = document.getElementById('preorder-form');
+        form.addEventListener('submit', async function (e) {
+            e.preventDefault();
+            const btn = form.querySelector('.submit-btn');
+            btn.textContent = 'Sending…';
+            btn.disabled = true;
+
+            try {
+                const res = await fetch(form.action, {
+                    method: 'POST',
+                    body: new FormData(form),
+                    headers: { 'Accept': 'application/json' }
+                });
+
+                if (res.ok) {
+                    form.style.display = 'none';
+                    document.getElementById('success-state').style.display = 'block';
+                } else {
+                    btn.textContent = 'Notify Me';
+                    btn.disabled = false;
+                    alert('Something went wrong. Email us directly at studiolasa.official@gmail.com');
+                }
+            } catch {
+                btn.textContent = 'Notify Me';
+                btn.disabled = false;
+                alert('Something went wrong. Email us directly at studiolasa.official@gmail.com');
+            }
+        });
+
+        // Smooth scroll for nav CTA
+        document.querySelector('.nav-cta').addEventListener('click', function (e) {
+            e.preventDefault();
+            document.getElementById('preorder').scrollIntoView({ behavior: 'smooth' });
+        });
+    </script>
+
+</body>
+</html>
